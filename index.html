@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Country population on the earth.</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+        />
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    </head>
+    <body data-bs-theme="dark" class="">
+        <header class="p-3 modernHeader">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center">
+                <h1 class="fs-4">Country population on the earth.</h1>
+                <div class="w-auto bg-body rounded-pill px-3 py-2 position-relative searchBox">
+                    <input
+                        type="text"
+                        id="search"
+                        class="w-100 h-100 form-control bg-transparent border-0 shadow-none ps-4 ms-1"
+                        placeholder="Search..."
+                    />
+                    <svg
+                        width="45px"
+                        height="45px"
+                        viewBox="0 -0.5 25 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="position-absolute top-50 ms-2 translate-middle rounded-circle p-1"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M5.5 10.7655C5.50003 8.01511 7.44296 5.64777 10.1405 5.1113C12.8381 4.57483 15.539 6.01866 16.5913 8.55977C17.6437 11.1009 16.7544 14.0315 14.4674 15.5593C12.1804 17.0871 9.13257 16.7866 7.188 14.8415C6.10716 13.7604 5.49998 12.2942 5.5 10.7655Z"
+                            stroke="#8decb4ce"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M17.029 16.5295L19.5 19.0005"
+                            stroke="#8decb4ce"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container mt-5">
+                <div id="cardContainer" class="row g-3">
+                    <!-- ...card -->
+                </div>
+                <div id="loading" class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </main>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+        ></script>
+
+        <script type="module" src="./main.js"></script>
+    </body>
+</html>

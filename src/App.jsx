@@ -6,6 +6,31 @@ import Card from "./components/Card";
 
 import { debounce } from 'lodash';
 
+const CloseBtn = ({ clearSearchInput }) => {
+    return (
+        <button type="button" className="p-2" onClick={clearSearchInput}>
+            <svg
+                width="20px"
+                height="20px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <g id="Menu / Close_LG">
+                    <path
+                        id="Vector"
+                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                        stroke="#8decb4ce"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </g>
+            </svg>
+        </button>
+    )
+}
+
 function App() {
     const [populationData, setPopulationData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -68,6 +93,14 @@ function App() {
         return rowObj;
     }
 
+    // ? How do you undestand debounce ?
+    // * to avoid multiple events in the same time
+    // * for example, search box when we create search feature no need to click to search,
+    // * it reacts each of user input(letters eg. dog-> d, o, g)
+    // * it is slow, it will be more true that it need more hard work not smart work
+    // * With debounce, it does not do as soon as user input, it wait some custom time to do 
+    // * it's feature
+    // * That's is how I understand debounce at 4232024
     const debounceSearch = useRef(
         debounce((term) => {
             setSearchTerm(term)
@@ -77,8 +110,15 @@ function App() {
     function handleSearchInput() {
         const inputVal = searchInputRef.current.value;
         let currSearchTerm = inputVal.trim();
-        // setSearchTerm(currSearchTerm)
         debounceSearch(currSearchTerm);
+    }
+
+    function clearSearchInput() {
+        // clear search input field
+        searchInputRef.current.value = "";
+
+        // clear search term
+        debounceSearch("");
     }
 
     useEffect(() => {
@@ -136,26 +176,7 @@ function App() {
 
                         />
 
-                        {searchTerm && (<button type="button" className="p-2">
-                            <svg
-                                width="20px"
-                                height="20px"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g id="Menu / Close_LG">
-                                    <path
-                                        id="Vector"
-                                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
-                                        stroke="#8decb4ce"
-                                        strokeWidth="3"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </g>
-                            </svg>
-                        </button>)}
+                        {searchTerm && <CloseBtn clearSearchInput={clearSearchInput} />}
                     </div>
                 </div>
             </header>

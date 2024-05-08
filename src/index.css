@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(51 65 85 / 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(71 85 105 / 0.5);
+}
+
 body {
     font-family: "Space Grotesk", sans-serif;
 }

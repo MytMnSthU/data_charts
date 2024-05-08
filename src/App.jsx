@@ -4,7 +4,7 @@ import MapBgImage from "./components/MapBgImage";
 import SearchIcon from "./components/SearchIcon";
 import Card from "./components/Card";
 
-import { debounce } from 'lodash';
+import { debounce, functions } from 'lodash';
 
 const CloseBtn = ({ clearSearchInput }) => {
     return (
@@ -32,8 +32,11 @@ const CloseBtn = ({ clearSearchInput }) => {
 }
 
 function App() {
+    const defaultVisibleCount = 10;
+
     const [populationData, setPopulationData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [visibleData, setVisibleData] = useState(defaultVisibleCount);
     const searchInputRef = useRef(null);
 
     const [titles, ...rows] = populationData.length > 0 ? populationData : [];
@@ -42,10 +45,12 @@ function App() {
 
     const searchedData = useMemo(() => {
         if (!formattedPopulationData) return []
-        if (!setSearchTerm.length === 0) return formattedPopulationData
+        if (!setSearchTerm.length === 0) return formattedPopulationData.slice(0, visibleData)
 
         return formattedPopulationData.filter(data => data.name.toLowerCase().includes(searchTerm.toLowerCase()))
     }, [formattedPopulationData, searchTerm])
+
+    const slicedData = searchedData.slice(0, visibleData);
 
     function generatePopulationDataObject(titles, data) {
         let rowObj = {};
@@ -121,6 +126,10 @@ function App() {
         debounceSearch("");
     }
 
+    function loadMoreData() {
+        setVisibleData(data => data + 10);
+    }
+
     useEffect(() => {
         const getData = async () => {
             try {
@@ -185,8 +194,10 @@ function App() {
 
             <main className=" bg-transparent min-h-screen backdrop-blur-sm px-[20px] py-[50px] pt-[150px] sm:pt-[100px]">
                 <div className="  max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5 ">
-                    {searchedData.length > 0 ? searchedData.map(data => <Card key={data.id} data={data} />) : <p className=" fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">Looks like a ghost town here. Try another search. 👻</p>}
+                    {slicedData.length > 0 ? slicedData.map(data => <Card key={data.id} data={data} />) : <p className=" fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">Looks like a ghost town here. Try another search. 👻</p>}
                 </div>
+
+                {visibleData < searchedData.length && <button type="button" className=" block mx-auto mt-5 bg-slate-700/50 px-8 py-3 rounded-full outline-none border-2 border-transparent focus-visible:border-primary hover:bg-slate-700/40" onClick={loadMoreData}>More</button>}
             </main>
         </>
     );

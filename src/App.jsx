@@ -133,7 +133,7 @@ function App() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch("../src/population.csv");
+                const res = await fetch("population.csv");
 
                 if (!res.ok) {
                     throw new Error(res.status);
